@@ -1,0 +1,7 @@
+/bin/
+/build/
+/.setting/
+/.classpath
+.project
+Servers/
+
