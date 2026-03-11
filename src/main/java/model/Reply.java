@@ -1,49 +1,41 @@
 package model;
 
 import java.sql.Timestamp;
-import java.util.List;
 
-public class Board {
+public class Reply {
 
     private int id;
+    private int boardId;
     private String name;
-    private String subject;
     private String message;
     private String email;
     private Timestamp createdAt;
-    
-    private List<Reply> replies;
 
-    // セッター・ゲッター
-
+    // --- getter / setter ---
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getBoardId() {
+        return boardId;
+    }
+    public void setBoardId(int boardId) {
+        this.boardId = boardId;
     }
 
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
     }
 
     public String getMessage() {
         return message;
     }
-
     public void setMessage(String message) {
         this.message = message;
     }
@@ -51,7 +43,6 @@ public class Board {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -59,16 +50,7 @@ public class Board {
     public Timestamp getCreatedAt() {
         return createdAt;
     }
-
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
-    }
-    
-    public List<Reply> getReplies() {
-        return replies;
-    }
-
-    public void setReplies(List<Reply> replies) {
-        this.replies = replies;
     }
 }
