@@ -8,7 +8,6 @@ public class Reply {
     private int boardId;
     private String name;
     private String message;
-    private String email;
     private Timestamp createdAt;
 
     // --- getter / setter ---
@@ -38,13 +37,6 @@ public class Reply {
     }
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Timestamp getCreatedAt() {

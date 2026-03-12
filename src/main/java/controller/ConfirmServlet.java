@@ -22,12 +22,19 @@ public class ConfirmServlet extends HttpServlet {
         String email = request.getParameter("email"); 
         String title = request.getParameter("subject");
         String content = request.getParameter("message");
-
+        String deleteKey = request.getParameter("deleteKey");
+        
+        //削除キー未設定の場合nullにする
+        if(deleteKey != null && deleteKey.isEmpty()) {
+        	deleteKey = null;
+        }
+        
         //リクエスト属性としてセット
         request.setAttribute("name", name);
         request.setAttribute("email", email);
         request.setAttribute("title", title);
         request.setAttribute("content", content);
+        request.setAttribute("deleteKey", deleteKey);
 
         //フォワード
         request.getRequestDispatcher("/WEB-INF/jsp/confirm.jsp").forward(request, response);

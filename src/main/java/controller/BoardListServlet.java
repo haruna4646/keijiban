@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.BoardDao;
 import model.Board;
 
-@WebServlet("/boards")  // URL
+@WebServlet("/boards")
 public class BoardListServlet extends HttpServlet {
 
     @Override
@@ -20,17 +20,14 @@ public class BoardListServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            // DAO作成
             BoardDao dao = new BoardDao();
 
-            // 投稿返信取得
+            // 投稿＋返信をまとめて取得
             List<Board> boards = dao.findAllWithReplies();
 
-            // JSPに渡す
             request.setAttribute("boards", boards);
-
-            // フォワード
-            request.getRequestDispatcher("/WEB-INF/list.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/list.jsp")
+                   .forward(request, response);
 
         } catch (Exception e) {
             throw new ServletException("掲示板一覧取得エラー", e);

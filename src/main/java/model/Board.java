@@ -64,6 +64,8 @@ public class Board {
         this.createdAt = createdAt;
     }
     
+    public List<Reply> reqlies;
+    
     public List<Reply> getReplies() {
         return replies;
     }

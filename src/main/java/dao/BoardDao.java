@@ -57,7 +57,6 @@ public class BoardDao {
                     r.setBoardId(rsReply.getInt("board_id"));
                     r.setName(rsReply.getString("name"));
                     r.setMessage(rsReply.getString("message"));
-                    r.setEmail(rsReply.getString("email"));
                     r.setCreatedAt(rsReply.getTimestamp("created_at"));
                     replyList.add(r);
                 }
@@ -70,5 +69,44 @@ public class BoardDao {
         }
 
         return boards;
+    }
+    
+    public boolean deleteBoard(int boardId, String deleteKey) throws Exception {
+
+        String deleteReplySql = "DELETE FROM replies WHERE BoardId = ?";
+
+        int boardCount;
+
+        try (Connection conn = getConnection()) {
+            conn.setAutoCommit(false); // トランザクション開始
+
+            // 返信を削除
+            try (PreparedStatement ps = conn.prepareStatement(deleteReplySql)) {
+                ps.setInt(1, boardId);
+                ps.executeUpdate();
+            }
+
+            // 投稿を削除
+            String deleteBoardSql;
+            if (deleteKey == null || deleteKey.isEmpty()) {
+                // deleteKey が null の場合は id のみで削除
+                deleteBoardSql = "DELETE FROM boards WHERE id = ?";
+                try (PreparedStatement ps = conn.prepareStatement(deleteBoardSql)) {
+                    ps.setInt(1, boardId);
+                    boardCount = ps.executeUpdate();
+                }
+            } else {
+                // deleteKey がある場合のみ 
+                deleteBoardSql = "DELETE FROM boards WHERE id = ? AND delete_key = ?";
+                try (PreparedStatement ps = conn.prepareStatement(deleteBoardSql)) {
+                    ps.setInt(1, boardId);
+                    ps.setString(2, deleteKey);
+                    boardCount = ps.executeUpdate();
+                }
+            }
+
+            conn.commit();
+            return boardCount > 0;
+        }
     }
 }

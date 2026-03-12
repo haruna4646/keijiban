@@ -19,6 +19,9 @@
 	
 	        <p>タイトル: ${title}</p>
 	        <input type="hidden" name="title" value="${title}">
+	        
+	        <P>削除キー</P>
+	        <input type="hidden" name="deleteKey" value="${deleteKey}">
 	
 	        <p>内容:</p>
 	        <pre>${content}</pre>

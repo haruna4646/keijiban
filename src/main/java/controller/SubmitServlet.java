@@ -26,6 +26,7 @@ public class SubmitServlet extends HttpServlet {
         String email = request.getParameter("email");
         String title = request.getParameter("title");
         String content = request.getParameter("content");
+        String deleteKey = request.getParameter("deleteKey");
 
         // DB接続して保存
         Connection conn = null;
@@ -40,14 +41,16 @@ public class SubmitServlet extends HttpServlet {
             String user = "root";
             String password = "Haruna4646";
             conn = DriverManager.getConnection(url, user, password);
-
+            
             // SQL作成
-            String sql = "INSERT INTO boards(name, email, subject, message, created_at) VALUES(?, ?, ?, ?, NOW())";
+            String sql = "INSERT INTO boards(name, email, subject, message, delete_Key, created_at) VALUES(?, ?, ?, ?, ?, NOW())";
+            
             ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, title);
             ps.setString(4, content);
+            ps.setString(5, deleteKey); //空でもOK
 
             ps.executeUpdate(); // 保存
 
