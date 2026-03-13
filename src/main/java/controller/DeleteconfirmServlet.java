@@ -15,7 +15,16 @@ public class DeleteconfirmServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int boardId = Integer.parseInt(request.getParameter("boardId"));
+        String boardIdStr = request.getParameter("boardId");
+
+        System.out.println("DeleteconfirmServlet boardId = " + boardIdStr);
+
+        if (boardIdStr == null || boardIdStr.isEmpty()) {
+            response.getWriter().println("boardId が来ていません");
+            return;
+        }
+
+        int boardId = Integer.parseInt(boardIdStr);
 
         request.setAttribute("boardId", boardId);
         request.getRequestDispatcher("/WEB-INF/jsp/Delete.jsp")

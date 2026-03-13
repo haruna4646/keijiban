@@ -35,11 +35,24 @@ public class DeleteServlet extends HttpServlet {
 
         try {
             BoardDao dao = new BoardDao();
-            dao.deleteBoard(boardId, deleteKey);
+            boolean deleted = dao.deleteBoard(boardId, deleteKey);
+            
+            	if(!deleted) {
+            		//エラー表示
+            		request.setAttribute("error", "削除キーが違います");
+            		request.setAttribute("boardId", boardId);
+            		request.getRequestDispatcher("/WEB-INF/jsp/Delete.jsp")
+            			.forward(request, response);
+            		return;
+            	}
+            	
+            	// 削除成功
+                request.setAttribute("message", "削除できました");
+                request.getRequestDispatcher("/WEB-INF/jsp/Delete.jsp")
+                       .forward(request, response);
+                
         } catch (Exception e) {
             throw new ServletException(e);
         }
-
-        response.sendRedirect("input");
     }
 }

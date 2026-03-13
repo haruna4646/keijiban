@@ -1,0 +1,185 @@
+@charset "UTF-8";
+
+/* ===== 全体 ===== */
+body {
+    background: #faf6f8;
+    font-family:
+        "MS PGothic",
+        "MS Gothic",
+        "Meiryo",
+        "Hiragino Kaku Gothic ProN",
+        sans-serif;
+    color: #555;
+    line-height: 1.5;
+}
+
+.wrapper {
+    width: 720px;
+    margin: 20px auto;
+}
+
+/* ===== 見出し ===== */
+h1, h2 {
+    font-family:
+        "MS PGothic",
+        "MS Gothic",
+        "Meiryo",
+        "Hiragino Kaku Gothic ProN",
+        sans-serif; /* bodyと同じ */
+    color: #b85c7a;
+    border-bottom: 1px solid #e5b8c8;
+    padding-bottom: 6px;
+    text-align: center;
+}
+
+/* ===== 投稿フォーム ===== */
+form {
+    border: 1px solid #e5b8c8;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: #fff;
+    font-size: 14px;        
+    flex-direction: column; 
+}
+
+form .form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;                  
+    margin-top: 10px;
+}         
+
+form > label:nth-of-type(-n+3),
+form > input:nth-of-type(-n+3) {
+    display: inline-block;
+    margin-right: 8px;
+    margin-bottom: 6px;
+    vertical-align: middle;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    box-sizing: border-box;
+    border: 1px solid #e1c7d0;
+    padding: 4px 6px;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 160px;
+}
+
+textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+input[type="password"] {
+    width: 200px;
+}
+
+/* ===== ボタン ===== */
+input[type="submit"],
+input[type="reset"],
+button {
+    border: 1px solid #e1c7d0;
+    background: #fff;
+    color: #555;
+    padding: 4px 10px;
+    font-size: 13px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+input:hover,
+button:hover {
+    background: #f6dbe5;
+}
+
+/* ===== 投稿（親） ===== */
+.board {
+    border: 1px solid #e5b8c8;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    background: #fff;
+    position: relative;
+    padding-right: 220px; /* ボタン用スペース確保 */
+}
+
+.board strong {
+    display: inline;
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.board p {
+    margin: 2px 0 6px 0; /* 「メッセージ：」との余白を詰める */
+    line-height: 1.6;
+}
+
+/* 日時（右上） */
+.board .date {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 12px;
+    color: #999;
+}
+
+/* 返信・削除ボタンを横並びに配置 */
+.board .board-buttons {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    display: flex;
+    gap: 6px;
+}
+
+/* 返信・削除ボタンを小さく調整 */
+.board .board-buttons button,
+.board .board-buttons input[type="submit"] {
+    font-size: 12px;   /* 文字サイズ小さめ */
+    padding: 2px 6px;  /* 上下左右の余白を小さく */
+    line-height: 1.2;
+    height: 24px;      /* 高さ固定で揃える */
+    box-sizing: border-box;
+}
+
+/* 削除フォームをボタン化 */
+.delete-form {
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+/* ===== 返信 ===== */
+.reply {
+    margin-top: 10px;
+    margin-left: 20px;
+    padding: 8px 10px;
+    max-width: calc(100% - 200px);
+    border-left: 2px solid #e5b8c8;
+    border-top: 1px solid #e5b8c8;
+    background: #fff;
+    color: #666;
+}
+
+.reply strong {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 12px;
+    color: #888;
+}
+
+.reply p {
+    margin: 2px 0 4px 0; /* 「メッセージ：」との余白を詰める */
+    line-height: 1.5;
+}
+
+/* 返信フォーム */
+#reply-form {
+    margin-top: 8px;
+}

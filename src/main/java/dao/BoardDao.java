@@ -73,40 +73,49 @@ public class BoardDao {
     
     public boolean deleteBoard(int boardId, String deleteKey) throws Exception {
 
-        String deleteReplySql = "DELETE FROM replies WHERE BoardId = ?";
-
+        String deleteReplySql = "DELETE FROM replies WHERE board_id = ?";
         int boardCount;
 
         try (Connection conn = getConnection()) {
-            conn.setAutoCommit(false); // トランザクション開始
+            conn.setAutoCommit(false);
 
-            // 返信を削除
+            // 返信を先に削除
             try (PreparedStatement ps = conn.prepareStatement(deleteReplySql)) {
                 ps.setInt(1, boardId);
                 ps.executeUpdate();
             }
 
-            // 投稿を削除
-            String deleteBoardSql;
+            // 投稿削除（条件が超重要）
             if (deleteKey == null || deleteKey.isEmpty()) {
-                // deleteKey が null の場合は id のみで削除
-                deleteBoardSql = "DELETE FROM boards WHERE id = ?";
-                try (PreparedStatement ps = conn.prepareStatement(deleteBoardSql)) {
+                //キー未設定の投稿だけ削除
+                String sql =
+                    "DELETE FROM boards " +
+                    "WHERE id = ? AND (delete_key IS NULL OR delete_key = '')";
+
+                try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setInt(1, boardId);
                     boardCount = ps.executeUpdate();
                 }
+
             } else {
-                // deleteKey がある場合のみ 
-                deleteBoardSql = "DELETE FROM boards WHERE id = ? AND delete_key = ?";
-                try (PreparedStatement ps = conn.prepareStatement(deleteBoardSql)) {
+                //一致した場合のみ削除
+                String sql =
+                    "DELETE FROM boards WHERE id = ? AND delete_key = ?";
+
+                try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setInt(1, boardId);
                     ps.setString(2, deleteKey);
                     boardCount = ps.executeUpdate();
                 }
             }
 
-            conn.commit();
-            return boardCount > 0;
+            if (boardCount > 0) {
+                conn.commit();
+                return true;
+            } else {
+                conn.rollback();
+                return false;
+            }
         }
     }
 }

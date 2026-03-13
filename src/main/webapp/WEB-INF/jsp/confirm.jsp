@@ -6,30 +6,33 @@
 	<head>
 	    <meta charset="UTF-8">
 	    <title>投稿内容確認</title>
+	    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/keijiban.css">
 	</head>
 	<body>
-	    <h2>投稿内容確認</h2>
+		<div class="wrapper">
+		    <h2>投稿内容確認</h2>
+		
+		    <form action="SubmitServlet" method="post">
+		        <p>名前: ${name}</p>
+		        <input type="hidden" name="name" value="${name}">
+		        
+		        <p>メール：${email}</p>
+		        <input type="hidden" name="email" value="${email}">
+		
+		        <p>タイトル: ${title}</p>
+		        <input type="hidden" name="title" value="${title}">
+		        
+		        <P>削除キー</P>
+		        <input type="hidden" name="deleteKey" value="${deleteKey}">
+		
+		        <p>内容:</p>
+		        <pre>${content}</pre>
+		        <input type="hidden" name="content" value="${content}">
+		
+		        <button type="button" onclick="history.back();">戻る</button>
 	
-	    <form action="SubmitServlet" method="post">
-	        <p>名前: ${name}</p>
-	        <input type="hidden" name="name" value="${name}">
-	        
-	        <p>メール：${email}</p>
-	        <input type="hidden" name="email" value="${email}">
-	
-	        <p>タイトル: ${title}</p>
-	        <input type="hidden" name="title" value="${title}">
-	        
-	        <P>削除キー</P>
-	        <input type="hidden" name="deleteKey" value="${deleteKey}">
-	
-	        <p>内容:</p>
-	        <pre>${content}</pre>
-	        <input type="hidden" name="content" value="${content}">
-	
-	        <button type="button" onclick="history.back();">戻る</button>
-
-	        <button type="submit">送信</button>
-	    </form>
+		        <button type="submit">送信</button>
+		    </form>
+		</div>
 	</body>
 </html>
